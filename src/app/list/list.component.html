@@ -1,0 +1,5 @@
+<button [hidden]="newCardMode" (click)="newCardMode = true;">Add new card...</button>
+<input [hidden]="!newCardMode" #newCardName type="text" placeholder="Enter name for new card..."
+       (keyup.enter)="addNewCard(newCardName.value)">
+<h2>{{list.title}}</h2>
+<tm-card [card]="card" *ngFor="let card of list.cards"></tm-card>

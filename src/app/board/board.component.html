@@ -1,0 +1,8 @@
+<button [hidden]="newListMode" (click)="newListMode = true;">Add new list...</button>
+<input [hidden]="!newListMode" #newListName type="text" placeholder="Enter name for new list..."
+       (keyup.enter)="addNewList(newListName.value)">
+<h1>{{board.title}}</h1>
+<div *ngFor="let list of board.lists">
+  <button (click)="removeList(list)">X</button>
+  <tm-list [list]="list"></tm-list>
+</div>

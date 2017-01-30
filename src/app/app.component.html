@@ -1,3 +1,39 @@
-<h1>
-  {{title}}
-</h1>
+<template #content let-c="close" let-d="dismiss">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h1>Add New Board</h1>
+    </div>
+    <form class="modal-body">
+      <div class="form-group">
+        <label for="newBoardName"><i class="glyphicon glyphicon-lock"></i>New Board Name:</label>
+        <input class="form-control" id="newBoardName" #newBoardName type="text"
+               placeholder="Enter name for new board..." (keyup.enter)="addNewBoard(newBoardName.value); c()">
+      </div>
+      <button (submit)="addNewBoard(newBoardName); c()" type="submit" class="btn btn-default">Submit</button>
+    </form>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+    </div>
+  </div>
+</template>
+<template ngbModalContainer></template>
+
+<div class="row">
+  <span class="glyphicon glyphicon-name"></span>
+  <button class="btn badge-danger" (click)="open(content)">Add new board...</button>
+</div>
+<div class="row">
+  <div class="col">
+    <div ngbDropdown class="d-inline-block">
+      <button class="btn btn-outline-primary" id="dropdownMenu1" ngbDropdownToggle>Available boards</button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <button (click)="activateBoard(board)" *ngFor="let board of taskBoards.boards" class="dropdown-item">
+          {{board.title}} <span (click)="removeBoard(board)">X</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <tm-board [hidden]="!board.isActive" *ngFor="let board of taskBoards.boards" [board]="board"></tm-board>
+</div>
